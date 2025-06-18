@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Official IQ Test</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    #startBtn, #submitBtn {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    #loadingBar {
+      width: 0;
+      height: 20px;
+      background: #4caf50;
+      margin-top: 20px;
+      transition: width 1s;
+    }
+
+    #question, #submitBtn {
+      display: none;
+    }
+
+    #container {
+      width: 300px;
+      background: white;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h1>Welcome to the Official IQ Test</h1>
+    <p>Click the button to begin your evaluation.</p>
+    <button id="startBtn">Start Test</button>
+    <div id="loadingBar"></div>
+
+    <div id="question">
+      <p>What is 2 + 2?</p>
+      <input type="text" id="answer" placeholder="Type your answer">
+      <button id="submitBtn">Submit Answer</button>
+    </div>
+  </div>
+
+  <script>
+    const startBtn = document.getElementById("startBtn");
+    const loadingBar = document.getElementById("loadingBar");
+    const question = document.getElementById("question");
+    const submitBtn = document.getElementById("submitBtn");
+
+    startBtn.onclick = () => {
+      startBtn.disabled = true;
+      startBtn.innerText = "Analyzing...";
+      loadingBar.style.width = "100%";
+
+      setTimeout(() => {
+        document.querySelector("h1").innerText = "Verifying Intelligence...";
+        loadingBar.style.width = "0";
+      }, 1500);
+
+      setTimeout(() => {
+        document.querySelector("p").innerText = "Please answer this question to continue.";
+        loadingBar.style.display = "none";
+        startBtn.style.display = "none";
+        question.style.display = "block";
+      }, 3000);
+    };
+
+    submitBtn.onclick = () => {
+      const val = document.getElementById("answer").value.trim();
+      if (val === "4") {
+        document.querySelector("p").innerText = "Correct. Calculating final score...";
+        question.style.display = "none";
+
+        setTimeout(() => {
+          window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        }, 2000);
+      } else {
+        alert("Wrong answer. Try again.");
+      }
+    };
+
+    document.getElementById("answer").addEventListener("keydown", e => {
+      if (e.key === "Enter") submitBtn.click();
+    });
+
+    question.addEventListener("input", () => {
+      submitBtn.style.display = "inline-block";
+    });
+  </script>
+</body>
+</html>
